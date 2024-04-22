@@ -33,7 +33,6 @@ public class PasswordGeneratorTest {
         assertFalse(PasswordValidator.containsCommonlyUsedPassword(password));
     }
 
-
     @Test
     void containsSpecialCharacters_WhenPasswordGeneratedReturnTrue() {
         assertTrue(PasswordValidator.containsSpecialCharacter(password));
