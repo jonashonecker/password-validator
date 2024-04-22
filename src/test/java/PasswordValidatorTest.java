@@ -126,4 +126,40 @@ public class PasswordValidatorTest {
         // THEN
         assertFalse(actual);
     }
+
+    @Test
+    void containsSpecialCharacters_WhenInputContainsDollarSymbolReturnTrue () throws FileNotFoundException {
+        // GIVEN
+        String password = "Hallo$";
+
+        // WHEN
+        boolean actual = PasswordValidator.containsSpecialCharacter(password);
+
+        // THEN
+        assertTrue(actual);
+    }
+
+    @Test
+    void containsSpecialCharacters_WhenInputContainsBracketSymbolReturnTrue () throws FileNotFoundException {
+        // GIVEN
+        String password = "Hallo(iid";
+
+        // WHEN
+        boolean actual = PasswordValidator.containsSpecialCharacter(password);
+
+        // THEN
+        assertTrue(actual);
+    }
+
+    @Test
+    void containsSpecialCharacters_WhenInputHalloReturnFalse () throws FileNotFoundException {
+        // GIVEN
+        String password = "Hallo";
+
+        // WHEN
+        boolean actual = PasswordValidator.containsSpecialCharacter(password);
+
+        // THEN
+        assertFalse(actual);
+    }
 }

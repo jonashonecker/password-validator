@@ -38,4 +38,8 @@ public class PasswordValidator {
         }
         return output;
     }
+
+    public static boolean containsSpecialCharacter(String password) {
+        return !password.matches("[a-zA-Z0-9ß]*");
+    }
 }
