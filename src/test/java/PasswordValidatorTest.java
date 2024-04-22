@@ -82,13 +82,13 @@ public class PasswordValidatorTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"H1$", "hu.i3&", "h-jdu30ijf", "???'§ldd"})
-    void containsSpecialCharacters_WhenInputContainsSpecialCharacterReturnTrue (String password) throws FileNotFoundException {
+    void containsSpecialCharacters_WhenInputContainsSpecialCharacterReturnTrue (String password) {
         assertTrue(PasswordValidator.containsSpecialCharacter(password));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"Hallo", "admin123", "ßßßj3of32", "qhefohiq831948"})
-    void containsSpecialCharacters_WhenInputContainsNoSpecialCharacterReturnFalse (String password) throws FileNotFoundException {
+    void containsSpecialCharacters_WhenInputContainsNoSpecialCharacterReturnFalse (String password) {
         assertFalse(PasswordValidator.containsSpecialCharacter(password));
     }
 }
