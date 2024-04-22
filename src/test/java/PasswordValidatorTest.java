@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PasswordValidatorTest {
@@ -84,6 +86,42 @@ public class PasswordValidatorTest {
 
         // WHEN
         boolean actual = PasswordValidator.containsUpperAndLowercaseLetters(password);
+
+        // THEN
+        assertFalse(actual);
+    }
+
+    @Test
+    void containsCommonlyUsedPassword_WhenInput1monkeyReturnTrue () throws FileNotFoundException {
+        // GIVEN
+        String password = "1monkey";
+
+        // WHEN
+        boolean actual = PasswordValidator.containsCommonlyUsedPassword(password);
+
+        // THEN
+        assertTrue(actual);
+    }
+
+    @Test
+    void containsCommonlyUsedPassword_WhenInputyyyyyReturnTrue () throws FileNotFoundException {
+        // GIVEN
+        String password = "yyyyy";
+
+        // WHEN
+        boolean actual = PasswordValidator.containsCommonlyUsedPassword(password);
+
+        // THEN
+        assertTrue(actual);
+    }
+
+    @Test
+    void containsCommonlyUsedPassword_WhenInputJonas138914781471283ReturnFalse () throws FileNotFoundException {
+        // GIVEN
+        String password = "Jonas138914781471283";
+
+        // WHEN
+        boolean actual = PasswordValidator.containsCommonlyUsedPassword(password);
 
         // THEN
         assertFalse(actual);
