@@ -6,4 +6,8 @@ public class PasswordValidator {
     public static boolean containsDigits(String password) {
         return password.matches(".*\\d.*");
     }
+
+    public static boolean containsUpperAndLowercaseLetters(String password) {
+        return password.matches(".*[A-Z].*[a-z].*");
+    }
 }

@@ -52,4 +52,40 @@ public class PasswordValidatorTest {
         // THEN
         assertFalse(actual);
     }
+
+    @Test
+    void containsUpperAndLowercaseLetters_WhenInputStringZZEFGReturnFalse () {
+        // GIVEN
+        String password = "ZZEFG";
+
+        // WHEN
+        boolean actual = PasswordValidator.containsUpperAndLowercaseLetters(password);
+
+        // THEN
+        assertFalse(actual);
+    }
+
+    @Test
+    void containsUpperAndLowercaseLetters_WhenInputStringZzefgReturnTrue () {
+        // GIVEN
+        String password = "Zzefg";
+
+        // WHEN
+        boolean actual = PasswordValidator.containsUpperAndLowercaseLetters(password);
+
+        // THEN
+        assertTrue(actual);
+    }
+
+    @Test
+    void containsUpperAndLowercaseLetters_WhenInputString1aaaReturnFalse () {
+        // GIVEN
+        String password = "1aaa";
+
+        // WHEN
+        boolean actual = PasswordValidator.containsUpperAndLowercaseLetters(password);
+
+        // THEN
+        assertFalse(actual);
+    }
 }
