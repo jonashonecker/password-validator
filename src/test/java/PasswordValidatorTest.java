@@ -1,4 +1,6 @@
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.FileNotFoundException;
 
@@ -6,89 +8,40 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PasswordValidatorTest {
 
-    @Test
-    void hasPasswordMinimalLength_whenInputStringABCDEFReturnFalse () {
-        // GIVEN
-        String password = "ABCDEF";
-
-        // WHEN
-        boolean actual = PasswordValidator.hasPasswordMinimalLength(password);
-
-        // THEN
-        assertFalse(actual);
+    @ParameterizedTest
+    @ValueSource(strings = {"1234567", "123456", "12345"})
+    void hasPasswordMinimalLength_whenInputStringLengthSmallerThan8ReturnFalse (String password) {
+        assertFalse(PasswordValidator.hasPasswordMinimalLength(password));
     }
 
-    @Test
-    void hasPasswordMinimalLength_whenInputStringABCDEFGHReturnTrue () {
-        // GIVEN
-        String password = "ABCDEFGH";
-
-        // WHEN
-        boolean actual = PasswordValidator.hasPasswordMinimalLength(password);
-
-        // THEN
-        assertTrue(actual);
+    @ParameterizedTest
+    @ValueSource(strings = {"123456789", "123456789wefhi"})
+    void hasPasswordMinimalLength_whenInputStringLengthHigherThan8ReturnTrue (String password) {
+        assertTrue(PasswordValidator.hasPasswordMinimalLength(password));
     }
 
-
-    @Test
-    void containsDigits_WhenInputStringZZ333ReturnTrue () {
-        // GIVEN
-        String password = "ZZ333";
-
-        // WHEN
-        boolean actual = PasswordValidator.containsDigits(password);
-
-        // THEN
-        assertTrue(actual);
+    @ParameterizedTest
+    @ValueSource(strings = {"ZZ333", "123456789wefhi"})
+    void containsDigits_WhenInputStringContainsDigitsReturnTrue (String password) {
+        assertTrue(PasswordValidator.containsDigits(password));
     }
 
-    @Test
-    void containsDigits_WhenInputStringZZEFGReturnFalse () {
-        // GIVEN
-        String password = "ZZEFG";
-
-        // WHEN
-        boolean actual = PasswordValidator.containsDigits(password);
-
-        // THEN
-        assertFalse(actual);
+    @ParameterizedTest
+    @ValueSource(strings = {"ZZEFG", "ABCDEF"})
+    void containsDigits_WhenInputStringContainsNoDigitsReturnFalse (String password) {
+        assertFalse(PasswordValidator.containsDigits(password));
     }
 
-    @Test
-    void containsUpperAndLowercaseLetters_WhenInputStringZZEFGReturnFalse () {
-        // GIVEN
-        String password = "ZZEFG";
-
-        // WHEN
-        boolean actual = PasswordValidator.containsUpperAndLowercaseLetters(password);
-
-        // THEN
-        assertFalse(actual);
+    @ParameterizedTest
+    @ValueSource(strings = {"ZZEFG", "zzefg", "1aaa"})
+    void containsUpperAndLowercaseLetters_WhenInputStringContainsOnlyUpperOrLowercaseReturnFalse (String password) {
+        assertFalse(PasswordValidator.containsUpperAndLowercaseLetters(password));
     }
 
-    @Test
-    void containsUpperAndLowercaseLetters_WhenInputStringZzefgReturnTrue () {
-        // GIVEN
-        String password = "Zzefg";
-
-        // WHEN
-        boolean actual = PasswordValidator.containsUpperAndLowercaseLetters(password);
-
-        // THEN
-        assertTrue(actual);
-    }
-
-    @Test
-    void containsUpperAndLowercaseLetters_WhenInputString1aaaReturnFalse () {
-        // GIVEN
-        String password = "1aaa";
-
-        // WHEN
-        boolean actual = PasswordValidator.containsUpperAndLowercaseLetters(password);
-
-        // THEN
-        assertFalse(actual);
+    @ParameterizedTest
+    @ValueSource(strings = {"ZZEeG", "zzefG", "1aAa"})
+    void containsUpperAndLowercaseLetters_WhenInputStringContainsUpperAndLowercaseReturnTrue (String password) {
+        assertTrue(PasswordValidator.containsUpperAndLowercaseLetters(password));
     }
 
     @Test
@@ -127,39 +80,15 @@ public class PasswordValidatorTest {
         assertFalse(actual);
     }
 
-    @Test
-    void containsSpecialCharacters_WhenInputContainsDollarSymbolReturnTrue () throws FileNotFoundException {
-        // GIVEN
-        String password = "Hallo$";
-
-        // WHEN
-        boolean actual = PasswordValidator.containsSpecialCharacter(password);
-
-        // THEN
-        assertTrue(actual);
+    @ParameterizedTest
+    @ValueSource(strings = {"H1$", "hu.i3&", "h-jdu30ijf", "???'§ldd"})
+    void containsSpecialCharacters_WhenInputContainsSpecialCharacterReturnTrue (String password) throws FileNotFoundException {
+        assertTrue(PasswordValidator.containsSpecialCharacter(password));
     }
 
-    @Test
-    void containsSpecialCharacters_WhenInputContainsBracketSymbolReturnTrue () throws FileNotFoundException {
-        // GIVEN
-        String password = "Hallo(iid";
-
-        // WHEN
-        boolean actual = PasswordValidator.containsSpecialCharacter(password);
-
-        // THEN
-        assertTrue(actual);
-    }
-
-    @Test
-    void containsSpecialCharacters_WhenInputHalloReturnFalse () throws FileNotFoundException {
-        // GIVEN
-        String password = "Hallo";
-
-        // WHEN
-        boolean actual = PasswordValidator.containsSpecialCharacter(password);
-
-        // THEN
-        assertFalse(actual);
+    @ParameterizedTest
+    @ValueSource(strings = {"Hallo", "admin123", "ßßßj3of32", "qhefohiq831948"})
+    void containsSpecialCharacters_WhenInputContainsNoSpecialCharacterReturnFalse (String password) throws FileNotFoundException {
+        assertFalse(PasswordValidator.containsSpecialCharacter(password));
     }
 }

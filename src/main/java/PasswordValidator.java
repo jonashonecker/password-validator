@@ -1,7 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 
 public class PasswordValidator {
@@ -14,7 +14,7 @@ public class PasswordValidator {
     }
 
     public static boolean containsUpperAndLowercaseLetters(String password) {
-        return password.matches(".*[A-Z].*[a-z].*");
+        return Pattern.compile("(?=.*[a-z])(?=.*[A-Z])").matcher(password).find();
     }
 
     public static boolean containsCommonlyUsedPassword(String password) throws FileNotFoundException {
